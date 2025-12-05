@@ -224,3 +224,77 @@ The following are explicitly NOT included in this feature:
 - Cart persistence across app restarts
 - Animations for item removal or quantity changes
 - Maximum quantity limits per item (beyond the order screen's `maxQuantity: 5`)
+
+---
+
+# Requirements Document: User Profile Feature
+
+## 1. Feature Overview
+
+Add a user profile page where customers can view and edit their name and phone number. Default values are shown initially, and users can save their own information locally.
+
+---
+
+## 2. User Stories
+
+### US-5: View and Edit Profile
+**As a** customer  
+**I want to** enter my name and phone number in a profile page  
+**So that** my contact information is saved for orders
+
+**Acceptance Criteria:**
+- Profile page accessible from app (icon in app bar)
+- Shows text fields for name and phone number
+- Default name: "Your Name"
+- Default phone: "(555) 123-4567"
+- Save button stores information locally
+- Success message shows after saving
+- Saved data loads when returning to profile page
+
+---
+
+## 3. Subtask Breakdown
+
+### Subtask 3.6: Create Profile Model and Repository
+
+**Description:** Create model and repository for storing profile data.
+
+**Technical Requirements:**
+- Create `UserProfile` model with `name` and `phoneNumber` properties
+- Create `ProfileRepository` using `shared_preferences`
+- Implement `loadProfile()` and `saveProfile()` methods
+- Return defaults if no saved data exists
+
+**Files to Create:**
+- `lib/models/user_profile.dart`
+- `lib/repositories/profile_repository.dart`
+
+---
+
+### Subtask 3.7: Create Profile Screen
+
+**Description:** Build profile page with name/phone fields and save button.
+
+**Technical Requirements:**
+- Create `ProfileScreen` StatefulWidget
+- Add TextFormFields for name and phone
+- Add Save button
+- Load profile on init, save on button press
+- Show SnackBar after successful save
+- Use existing app styles
+
+**Files to Create:**
+- `lib/views/profile_screen.dart`
+
+---
+
+### Subtask 3.8: Add Navigation
+
+**Description:** Add profile icon to app bar for navigation.
+
+**Technical Requirements:**
+- Add IconButton with `Icons.person` to app bar
+- Navigate to ProfileScreen on tap
+
+**Files to Modify:**
+- `lib/views/order_screen.dart`
