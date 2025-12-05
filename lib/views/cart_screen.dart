@@ -21,6 +21,21 @@ class _CartScreenState extends State<CartScreen> {
     Navigator.pop(context);
   }
 
+  void _incrementQuantity(Sandwich sandwich) {
+    setState(() {
+      widget.cart.add(sandwich, quantity: 1);
+    });
+  }
+
+  void _decrementQuantity(Sandwich sandwich) {
+    setState(() {
+      final currentQuantity = widget.cart.items[sandwich] ?? 0;
+      if (currentQuantity > 1) {
+        widget.cart.remove(sandwich, quantity: 1);
+      }
+    });
+  }
+
   String _getSizeText(bool isFootlong) {
     if (isFootlong) {
       return 'Footlong';
@@ -67,9 +82,26 @@ class _CartScreenState extends State<CartScreen> {
                       '${_getSizeText(entry.key.isFootlong)} on ${entry.key.breadType.name} bread',
                       style: normalText,
                     ),
-                    Text(
-                      'Qty: ${entry.value} - £${_getItemPrice(entry.key, entry.value).toStringAsFixed(2)}',
-                      style: normalText,
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        IconButton(
+                          onPressed: entry.value > 1
+                              ? () => _decrementQuantity(entry.key)
+                              : null,
+                          icon: const Icon(Icons.remove_circle_outline),
+                          color: entry.value > 1 ? Colors.red : Colors.grey,
+                        ),
+                        Text(
+                          'Qty: ${entry.value} - £${_getItemPrice(entry.key, entry.value).toStringAsFixed(2)}',
+                          style: normalText,
+                        ),
+                        IconButton(
+                          onPressed: () => _incrementQuantity(entry.key),
+                          icon: const Icon(Icons.add_circle_outline),
+                          color: Colors.green,
+                        ),
+                      ],
                     ),
                     const SizedBox(height: 20),
                   ],
