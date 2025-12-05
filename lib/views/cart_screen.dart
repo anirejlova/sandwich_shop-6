@@ -36,6 +36,12 @@ class _CartScreenState extends State<CartScreen> {
     });
   }
 
+  void _remove(Sandwich sandwich) {
+    setState(() {
+      widget.cart.remove(sandwich);
+    });
+  }
+
   String _getSizeText(bool isFootlong) {
     if (isFootlong) {
       return 'Footlong';
@@ -77,29 +83,50 @@ class _CartScreenState extends State<CartScreen> {
               for (MapEntry<Sandwich, int> entry in widget.cart.items.entries)
                 Column(
                   children: [
-                    Text(entry.key.name, style: heading2),
-                    Text(
-                      '${_getSizeText(entry.key.isFootlong)} on ${entry.key.breadType.name} bread',
-                      style: normalText,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
+                    Stack(
                       children: [
-                        IconButton(
-                          onPressed: entry.value > 1
-                              ? () => _decrementQuantity(entry.key)
-                              : null,
-                          icon: const Icon(Icons.remove_circle_outline),
-                          color: entry.value > 1 ? Colors.red : Colors.grey,
+                        Column(
+                          children: [
+                            Text(entry.key.name, style: heading2),
+                            Text(
+                              '${_getSizeText(entry.key.isFootlong)} on ${entry.key.breadType.name} bread',
+                              style: normalText,
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                IconButton(
+                                  onPressed: entry.value > 1
+                                      ? () => _decrementQuantity(entry.key)
+                                      : null,
+                                  icon: const Icon(Icons.remove_circle_outline),
+                                  color: entry.value > 1
+                                      ? Colors.red
+                                      : Colors.grey,
+                                ),
+                                Text(
+                                  'Qty: ${entry.value} - £${_getItemPrice(entry.key, entry.value).toStringAsFixed(2)}',
+                                  style: normalText,
+                                ),
+                                IconButton(
+                                  onPressed: () =>
+                                      _incrementQuantity(entry.key),
+                                  icon: const Icon(Icons.add_circle_outline),
+                                  color: Colors.green,
+                                ),
+                              ],
+                            ),
+                          ],
                         ),
-                        Text(
-                          'Qty: ${entry.value} - £${_getItemPrice(entry.key, entry.value).toStringAsFixed(2)}',
-                          style: normalText,
-                        ),
-                        IconButton(
-                          onPressed: () => _incrementQuantity(entry.key),
-                          icon: const Icon(Icons.add_circle_outline),
-                          color: Colors.green,
+                        Positioned(
+                          right: 0,
+                          top: 0,
+                          child: IconButton(
+                            onPressed: () => _remove(entry.key),
+                            icon: const Icon(Icons.close),
+                            color: Colors.red,
+                            tooltip: 'Remove item',
+                          ),
                         ),
                       ],
                     ),
