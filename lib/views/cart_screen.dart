@@ -42,6 +42,38 @@ class _CartScreenState extends State<CartScreen> {
     });
   }
 
+  void _clearCart() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Clear Cart'),
+          content: const Text('Are you sure you want to clear your cart?'),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: const Text('Cancel'),
+            ),
+            TextButton(
+              onPressed: () {
+                setState(() {
+                  widget.cart.clear();
+                });
+                Navigator.pop(context);
+              },
+              child: const Text(
+                'Confirm',
+                style: TextStyle(color: Colors.red),
+              ),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   String _getSizeText(bool isFootlong) {
     if (isFootlong) {
       return 'Footlong';
@@ -139,6 +171,13 @@ class _CartScreenState extends State<CartScreen> {
                 textAlign: TextAlign.center,
               ),
               const SizedBox(height: 20),
+              StyledButton(
+                onPressed: _clearCart,
+                icon: Icons.delete_forever,
+                label: 'Clear Cart',
+                backgroundColor: Colors.red,
+              ),
+              const SizedBox(height: 10),
               StyledButton(
                 onPressed: _goBack,
                 icon: Icons.arrow_back,
