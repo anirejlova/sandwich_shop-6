@@ -298,3 +298,96 @@ Add a user profile page where customers can view and edit their name and phone n
 
 **Files to Modify:**
 - `lib/views/order_screen.dart`
+
+---
+
+# Requirements Document: Drawer Navigation Feature
+
+## 1. Feature Overview
+
+Add a Drawer menu for easy navigation between Profile and About screens. The Drawer slides in from the left edge of the screen.
+
+---
+
+## 2. User Stories
+
+### US-6: Access Navigation Menu
+**As a** customer  
+**I want to** open a navigation drawer  
+**So that** I can easily navigate to different sections
+
+**Acceptance Criteria:**
+- Hamburger menu icon visible in app bar
+- Drawer opens from left side
+- Contains Profile and About navigation options
+- Closes when tapping outside or selecting an option
+
+### US-7: Navigate to Profile
+**As a** customer  
+**I want to** access my profile from the drawer  
+**So that** I can view and edit my information
+
+**Acceptance Criteria:**
+- "Profile" option with person icon
+- Taps navigate to ProfileScreen
+- Drawer closes after navigation
+
+### US-8: Navigate to About
+**As a** customer  
+**I want to** access the About page from the drawer  
+**So that** I can learn about the shop
+
+**Acceptance Criteria:**
+- "About" option with info icon
+- Taps navigate to AboutScreen
+- Drawer closes after navigation
+
+---
+
+## 3. Subtask Breakdown
+
+### Subtask 3.9: Create AppDrawer Widget
+
+**Technical Requirements:**
+- Create `AppDrawer` StatelessWidget
+- Add DrawerHeader with app logo
+- Add ListTile for "Profile" (`Icons.person`)
+- Add ListTile for "About" (`Icons.info`)
+- Implement navigation with `Navigator.push`
+- Close drawer with `Navigator.pop(context)`
+
+**Files to Create:**
+- `lib/widgets/app_drawer.dart`
+
+---
+
+### Subtask 3.10-3.13: Add Drawer to Screens
+
+**Technical Requirements:**
+- Add `drawer: const AppDrawer()` to Scaffold in:
+  - `lib/views/order_screen.dart`
+  - `lib/views/cart_screen.dart`
+  - `lib/views/profile_screen.dart`
+  - `lib/views/about_screen.dart`
+- Remove profile IconButton from order_screen.dart (if present)
+
+---
+
+## 4. Acceptance Criteria
+
+1. ✓ Drawer accessible from Order, Cart, Profile, About screens
+2. ✓ Profile and About options navigate correctly
+3. ✓ Drawer closes after navigation
+4. ✓ Hamburger icon appears in all app bars
+5. ✓ Styling follows app theme
+
+---
+
+## 5. Out of Scope
+
+- User authentication
+- Dynamic menu items
+- Custom drawer animations
+- Multiple drawer levels
+
+---
