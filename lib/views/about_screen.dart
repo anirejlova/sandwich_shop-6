@@ -8,20 +8,47 @@ class AboutScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('About Us', style: heading1),
+        leading: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: SizedBox(
+            height: 100,
+            child: Image.asset('assets/images/logo.png'),
+          ),
+        ),
+        title: const Text(
+          'About',
+          style: heading1,
+        ),
       ),
-      body: const Padding(
-        padding: EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text('Welcome to Sandwich Shop!', style: heading2),
-            SizedBox(height: 20),
-            Text(
-              'We are a family-owned business dedicated to serving the best sandwiches in town.',
-              style: normalText,
+      body: const Center(
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: EdgeInsets.all(20.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                SizedBox(height: 20),
+                Text(
+                  'About Our Sandwich Shop',
+                  style: heading2,
+                  textAlign: TextAlign.center,
+                ),
+                SizedBox(height: 20),
+                Text(
+                  'Welcome to our sandwich shop! We serve the finest sandwiches made with fresh ingredients and love.',
+                  style: normalText,
+                  textAlign: TextAlign.center,
+                ),
+                SizedBox(height: 20),
+                Text(
+                  'Our mission is to provide delicious, high-quality sandwiches that satisfy every customer.',
+                  style: normalText,
+                  textAlign: TextAlign.center,
+                ),
+                SizedBox(height: 20),
+              ],
             ),
-          ],
+          ),
         ),
       ),
     );
