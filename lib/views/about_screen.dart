@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sandwich_shop/views/app_styles.dart';
+import 'package:sandwich_shop/widgets/app_drawer.dart';
 
 class AboutScreen extends StatelessWidget {
   const AboutScreen({super.key});
@@ -20,6 +21,7 @@ class AboutScreen extends StatelessWidget {
           style: heading1,
         ),
       ),
+      drawer: const AppDrawer(),
       body: const Center(
         child: SingleChildScrollView(
           child: Padding(

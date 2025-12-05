@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sandwich_shop/views/app_styles.dart';
 import 'package:sandwich_shop/views/cart_screen.dart';
-import 'package:sandwich_shop/views/profile_screen.dart';
+import 'package:sandwich_shop/widgets/app_drawer.dart';
 import 'package:sandwich_shop/models/cart.dart';
 import 'package:sandwich_shop/models/sandwich.dart';
 
@@ -85,15 +85,6 @@ class _OrderScreenState extends State<OrderScreen> {
     );
   }
 
-  void _navigateToProfile() {
-    Navigator.push(
-      context,
-      MaterialPageRoute<void>(
-        builder: (BuildContext context) => const ProfileScreen(),
-      ),
-    );
-  }
-
   List<DropdownMenuEntry<SandwichType>> _buildSandwichTypeEntries() {
     List<DropdownMenuEntry<SandwichType>> entries = [];
     for (SandwichType type in SandwichType.values) {
@@ -144,14 +135,8 @@ class _OrderScreenState extends State<OrderScreen> {
           'Sandwich Counter',
           style: heading1,
         ),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.person),
-            onPressed: _navigateToProfile,
-            tooltip: 'Profile',
-          ),
-        ],
       ),
+      drawer: const AppDrawer(),
       body: Center(
         child: SingleChildScrollView(
           child: Column(

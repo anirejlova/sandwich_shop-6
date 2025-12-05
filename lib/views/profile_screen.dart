@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sandwich_shop/views/app_styles.dart';
+import 'package:sandwich_shop/widgets/app_drawer.dart';
 import 'package:sandwich_shop/views/order_screen.dart';
 
 class ProfileScreen extends StatefulWidget {
@@ -47,6 +48,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           style: heading1,
         ),
       ),
+      drawer: const AppDrawer(),
       body: Center(
         child: SingleChildScrollView(
           child: Padding(
