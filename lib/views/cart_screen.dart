@@ -112,72 +112,84 @@ class _CartScreenState extends State<CartScreen> {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               const SizedBox(height: 20),
-              for (MapEntry<Sandwich, int> entry in widget.cart.items.entries)
-                Column(
-                  children: [
-                    Stack(
-                      children: [
-                        Column(
-                          children: [
-                            Text(entry.key.name, style: heading2),
-                            Text(
-                              '${_getSizeText(entry.key.isFootlong)} on ${entry.key.breadType.name} bread',
-                              style: normalText,
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                IconButton(
-                                  onPressed: entry.value > 1
-                                      ? () => _decrementQuantity(entry.key)
-                                      : null,
-                                  icon: const Icon(Icons.remove_circle_outline),
-                                  color: entry.value > 1
-                                      ? Colors.red
-                                      : Colors.grey,
-                                ),
-                                Text(
-                                  'Qty: ${entry.value} - £${_getItemPrice(entry.key, entry.value).toStringAsFixed(2)}',
-                                  style: normalText,
-                                ),
-                                IconButton(
-                                  onPressed: () =>
-                                      _incrementQuantity(entry.key),
-                                  icon: const Icon(Icons.add_circle_outline),
-                                  color: Colors.green,
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                        Positioned(
-                          right: 0,
-                          top: 0,
-                          child: IconButton(
-                            onPressed: () => _remove(entry.key),
-                            icon: const Icon(Icons.close),
-                            color: Colors.red,
-                            tooltip: 'Remove item',
+              if (widget.cart.items.isEmpty)
+                const Padding(
+                  padding: EdgeInsets.all(40.0),
+                  child: Text(
+                    'Your cart is empty',
+                    style: heading2,
+                    textAlign: TextAlign.center,
+                  ),
+                )
+              else ...[
+                for (MapEntry<Sandwich, int> entry in widget.cart.items.entries)
+                  Column(
+                    children: [
+                      Stack(
+                        children: [
+                          Column(
+                            children: [
+                              Text(entry.key.name, style: heading2),
+                              Text(
+                                '${_getSizeText(entry.key.isFootlong)} on ${entry.key.breadType.name} bread',
+                                style: normalText,
+                              ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  IconButton(
+                                    onPressed: entry.value > 1
+                                        ? () => _decrementQuantity(entry.key)
+                                        : null,
+                                    icon:
+                                        const Icon(Icons.remove_circle_outline),
+                                    color: entry.value > 1
+                                        ? Colors.red
+                                        : Colors.grey,
+                                  ),
+                                  Text(
+                                    'Qty: ${entry.value} - £${_getItemPrice(entry.key, entry.value).toStringAsFixed(2)}',
+                                    style: normalText,
+                                  ),
+                                  IconButton(
+                                    onPressed: () =>
+                                        _incrementQuantity(entry.key),
+                                    icon: const Icon(Icons.add_circle_outline),
+                                    color: Colors.green,
+                                  ),
+                                ],
+                              ),
+                            ],
                           ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 20),
-                  ],
+                          Positioned(
+                            right: 0,
+                            top: 0,
+                            child: IconButton(
+                              onPressed: () => _remove(entry.key),
+                              icon: const Icon(Icons.close),
+                              color: Colors.red,
+                              tooltip: 'Remove item',
+                            ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 20),
+                    ],
+                  ),
+                Text(
+                  'Total: £${widget.cart.totalPrice.toStringAsFixed(2)}',
+                  style: heading2,
+                  textAlign: TextAlign.center,
                 ),
-              Text(
-                'Total: £${widget.cart.totalPrice.toStringAsFixed(2)}',
-                style: heading2,
-                textAlign: TextAlign.center,
-              ),
-              const SizedBox(height: 20),
-              StyledButton(
-                onPressed: _clearCart,
-                icon: Icons.delete_forever,
-                label: 'Clear Cart',
-                backgroundColor: Colors.red,
-              ),
-              const SizedBox(height: 10),
+                const SizedBox(height: 20),
+                StyledButton(
+                  onPressed: _clearCart,
+                  icon: Icons.delete_forever,
+                  label: 'Clear Cart',
+                  backgroundColor: Colors.red,
+                ),
+                const SizedBox(height: 10),
+              ],
               StyledButton(
                 onPressed: _goBack,
                 icon: Icons.arrow_back,
